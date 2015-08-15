@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SimplyListItViewController: UITableViewController {
+class SimplyListItViewController: UITableViewController, AddItemViewControllerDelegate {
     
     
     var items: [ListItem]
@@ -37,12 +37,7 @@ class SimplyListItViewController: UITableViewController {
     }
     
     
-    
-    
-    
-    
-
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -128,40 +123,38 @@ class SimplyListItViewController: UITableViewController {
     
     
     
+    //MARK: -- AddItemViewController - DELEGATE Methods
     
     
-    
-    
-    
-    
-    
-    //MARK: -- Action/Button Methods
-    
-    @IBAction func addItem() {
+    // When AddItem's Cancel Button is pressed - this delegate method will trigger
+    func addItemViewControllerDidCancel(controller: AddItemViewController) {
         
-        // Create constant equal to the count of the array (count will give you the next row
+        // Dismiss the addItemVC
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    
+    // When AddItem's Done Button is pressed - this delegate method is triggered - data is passed and Screen is dismissed.
+    func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ListItem) {
+        
+        // Grab the new row's index
         let newRowIndex = items.count
         
-        // Create instance of the ListItem Class object
-        let item = ListItem()
-        
-        // Set the new instance's parameters
-        item.text = "I am a new row!"
-        item.checked = false
-
-        // add the item into the array
+        // Add the item that was passed into the items Array
         items.append(item)
         
-        // Create instance of new row's indexPath to add to the tableView
+        // Set the indexPath to the new row that the new item will go
         let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
         
-        // create new/temporary array holding the new indexPath item
+        // Create an array with indexPath
         let indexPaths = [indexPath]
         
-        // Insert new row into the tableView - with nice animation
+        // Call tableView method that will insert the new row at the proper indexPath
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
         
-        
+        // Dismiss the addItemVC
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     
@@ -171,19 +164,69 @@ class SimplyListItViewController: UITableViewController {
     
     
     
+    
+    
+    
+    //MARK: -- Action/Button Methods
+ 
+/* 
+    THIS BUTTON METHOD HAS BEEN REPLACED BY THE AddItemViewControllerDelegate's PROTOCOL METHODS
+            **** REMEMBER TO DOUBLE CHECK THAT IN STORYBOARD THAT THE 'ADD' BUTTON's ONLY CONNECTION SHOULD BE THE SEQUE. */
+    
+//    @IBAction func addItem() {
+//        
+//        // Create constant equal to the count of the array (count will give you the next row
+//        let newRowIndex = items.count
+//        
+//        // Create instance of the ListItem Class object
+//        let item = ListItem()
+//        
+//        // Set the new instance's parameters
+//        item.text = "I am a new row!"
+//        item.checked = false
+//
+//        // add the item into the array
+//        items.append(item)
+//        
+//        // Create instance of new row's indexPath to add to the tableView
+//        let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
+//        
+//        // create new/temporary array holding the new indexPath item
+//        let indexPaths = [indexPath]
+//        
+//        // Insert new row into the tableView - with nice animation
+//        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+//        
+//    }
+    
+
+    
    //MARK: -- Helper Methods
     
     // Configure Checkmark for Cell
     func configureCheckmarkForCell(cell: UITableViewCell, withListItem item: ListItem) {
         
-        // If cell's accessory is off... turn it on, if it is on... turn it off
+       /*   // If cell's accessory is off... turn it on, if it is on... turn it off
+          if item.checked {
+        
+              cell.accessoryType = .Checkmark
+          }
+          else {
+        
+             cell.accessoryType = .None
+          }*/
+
+    // *** THE FOLLOWING CODE REPLACED THE COMMENTED OUT CODE ABOVE
+        
+        let label = cell.viewWithTag(1001) as! UILabel
+        
         if item.checked {
             
-            cell.accessoryType = .Checkmark
-        }
-        else {
+            label.text = "✓"
             
-            cell.accessoryType = .None
+        } else {
+            
+            label.text = ""
         }
     }
     
@@ -202,15 +245,28 @@ class SimplyListItViewController: UITableViewController {
     
     
 
+    //MARK: -- PREPARE FOR SEGUE METHODS
     
-    
-    
-    
-    
-    
-    
-    
-
+    // Prepare For Segue Method - Seguing to a AddItemViewController that is on top of a NavigationController
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // Make sure we are in the correct segue (Must equal segue identifier name in Storyboard)
+        if segue.identifier == "AddItem" {
+            
+            // Make sure that we are sequing into the AddItemViewController Class
+            if segue.destinationViewController.topViewController is (AddItemViewController) {
+             
+            // Create constant equal to the destinationVC (navigationController) - force unwrapped as UINavigationController
+            let navigationController = segue.destinationViewController as! UINavigationController
+                
+                // Create constant equal the destinationVC's topViewController (force unwrapped as AddItemViewController)
+                let controller = navigationController.topViewController as! AddItemViewController
+                
+                // Set the ultimate destinationVC's delegate as self
+                controller.delegate = self
+            }
+        }
+    }
 
 
 }
