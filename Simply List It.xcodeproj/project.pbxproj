@@ -13,7 +13,7 @@
 		9A1A03D11B76737900D7E335 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A1A03D01B76737900D7E335 /* Images.xcassets */; };
 		9A1A03D41B76737900D7E335 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A1A03D21B76737900D7E335 /* LaunchScreen.xib */; };
 		9A1A03E01B76737900D7E335 /* Simply_List_ItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1A03DF1B76737900D7E335 /* Simply_List_ItTests.swift */; };
-		9A91B0CC1B76FC9200B661B6 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A91B0CB1B76FC9200B661B6 /* AddItemViewController.swift */; };
+		9A91B0CC1B76FC9200B661B6 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A91B0CB1B76FC9200B661B6 /* ItemDetailViewController.swift */; };
 		9AD5086F1B76B6F70045D94D /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5086E1B76B6F70045D94D /* ListItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,14 +31,14 @@
 		9A1A03C41B76737900D7E335 /* Simply List It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Simply List It.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A1A03C81B76737900D7E335 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A1A03C91B76737900D7E335 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9A1A03CB1B76737900D7E335 /* SimplyListItViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplyListItViewController.swift; sourceTree = "<group>"; };
+		9A1A03CB1B76737900D7E335 /* SimplyListItViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SimplyListItViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9A1A03CE1B76737900D7E335 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9A1A03D01B76737900D7E335 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9A1A03D31B76737900D7E335 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		9A1A03D91B76737900D7E335 /* Simply List ItTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Simply List ItTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A1A03DE1B76737900D7E335 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A1A03DF1B76737900D7E335 /* Simply_List_ItTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simply_List_ItTests.swift; sourceTree = "<group>"; };
-		9A91B0CB1B76FC9200B661B6 /* AddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddItemViewController.swift; path = ../AddItemViewController.swift; sourceTree = "<group>"; };
+		9A91B0CB1B76FC9200B661B6 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ItemDetailViewController.swift; path = ../ItemDetailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9AD5086E1B76B6F70045D94D /* ListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListItem.swift; path = ../ListItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,7 +128,7 @@
 		9A91B0CA1B76F16D00B661B6 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9A91B0CB1B76FC9200B661B6 /* AddItemViewController.swift */,
+				9A91B0CB1B76FC9200B661B6 /* ItemDetailViewController.swift */,
 				9A1A03CB1B76737900D7E335 /* SimplyListItViewController.swift */,
 			);
 			name = "View Controllers";
@@ -235,7 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AD5086F1B76B6F70045D94D /* ListItem.swift in Sources */,
-				9A91B0CC1B76FC9200B661B6 /* AddItemViewController.swift in Sources */,
+				9A91B0CC1B76FC9200B661B6 /* ItemDetailViewController.swift in Sources */,
 				9A1A03CC1B76737900D7E335 /* SimplyListItViewController.swift in Sources */,
 				9A1A03CA1B76737900D7E335 /* AppDelegate.swift in Sources */,
 			);

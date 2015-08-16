@@ -4,109 +4,13 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AddItemViewController.swift"
-            timestampString = "461362869.399065"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Simply_List_It.AddItemViewController.doneBarButton.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UIBarButtonItem&gt;"
-                  moduleName = "Simply List It"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macmini/iOS%20Dev/Projects/Simply%20List%20It/AddItemViewController.swift"
-                  timestampString = "461362869.404206"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "12">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Simply_List_It.AddItemViewController.doneBarButton.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UIBarButtonItem&gt;"
-                  moduleName = "Simply List It"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macmini/iOS%20Dev/Projects/Simply%20List%20It/AddItemViewController.swift"
-                  timestampString = "461362869.404476"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Simply_List_It.AddItemViewController.doneBarButton.materializeForSet : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UIBarButtonItem&gt;"
-                  moduleName = "Simply List It"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macmini/iOS%20Dev/Projects/Simply%20List%20It/AddItemViewController.swift"
-                  timestampString = "461362869.404642"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Simply_List_It.AddItemViewController.init (Simply_List_It.AddItemViewController.Type)(style : C.UITableViewStyle) -&gt; Simply_List_It.AddItemViewController"
-                  moduleName = "Simply List It"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macmini/iOS%20Dev/Projects/Simply%20List%20It/AddItemViewController.swift"
-                  timestampString = "461362869.404809"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "28">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Simply_List_It.AddItemViewController.init (Simply_List_It.AddItemViewController.Type)(nibName : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;, bundle : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSBundle&gt;) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Simply_List_It.AddItemViewController&gt;"
-                  moduleName = "Simply List It"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macmini/iOS%20Dev/Projects/Simply%20List%20It/AddItemViewController.swift"
-                  timestampString = "461362869.405018"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "53">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Simply_List_It.AddItemViewController.init (Simply_List_It.AddItemViewController.Type)(coder : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSCoder&gt;) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Simply_List_It.AddItemViewController&gt;"
-                  moduleName = "Simply List It"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macmini/iOS%20Dev/Projects/Simply%20List%20It/AddItemViewController.swift"
-                  timestampString = "461362869.405187"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "31">
-               </Location>
-            </Locations>
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

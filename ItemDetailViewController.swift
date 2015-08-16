@@ -1,5 +1,5 @@
 //
-//  AddItemViewController.swift
+//  ItemDetailViewController.swift
 //  Simply List It
 //
 //  Created by Mark Stuver on 8/8/15.
@@ -8,20 +8,23 @@
 
 import UIKit
 
-// Creating Protocols that will be required when any other VC wants to use the AddItemViewControllerDelegate
-protocol AddItemViewControllerDelegate: class {
+// Creating Protocols that will be required when any other VC wants to use the ItemDetailViewControllerDelegate
+protocol ItemDetailViewControllerDelegate: class {
     
     // Method will be called when the user presses cancel
-    func addItemViewControllerDidCancel(controller: AddItemViewController)
+    func itemDetailViewControllerDidCancel(controller: ItemDetailViewController)
     
-    // Method will be called to pass the data from the AddItemViewController to the requesting VC
-    func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ListItem)
+    // Method will be called to pass the data from the ItemDetailViewController to the requesting VC
+    func itemDetailViewController(controller: ItemDetailViewController, didFinishAddingItem item: ListItem)
+    
+    //Method will be called when user is done editing the item so that the data can be changed when the delegate dismisses the VC
+    func itemDetailViewController(controller: ItemDetailViewController, didFinishEditingItem item: ListItem)
 }
 
 
 
 
-/* Making AddItemViewController a Delegate for the TextField - 3 steps:
+/* Making ItemDetailViewController a Delegate for the TextField - 3 steps:
 1. Declare the VC as a delegate - ie: add UITextFieldDelegate into the opening Class line
 2. Tell the TextField its a Delegate - ie: in Storyboard, select textField and open connection inspector. Ctrl/Click the Outlet Delegate and drag to the ViewController
 3. Implement the delegate method */
@@ -29,7 +32,7 @@ protocol AddItemViewControllerDelegate: class {
 
 // Adding UITextFieldDelegate to utilize one of the delegate methods
 
-class AddItemViewController: UITableViewController, UITextFieldDelegate {
+class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
 
     
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
@@ -38,8 +41,8 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     
     var itemToEdit: ListItem?
 
-// AddItemViewControllerDelegate varaiable that will be used to pass data
-    weak var delegate: AddItemViewControllerDelegate?
+// ItemDetailViewControllerDelegate varaiable that will be used to pass data
+    weak var delegate: ItemDetailViewControllerDelegate?
     
     
     
@@ -53,6 +56,8 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
             
             title = "Edit Item"
             addItemTextField.text = item.text
+            
+            doneBarButton.enabled = true
         }
     }
     
@@ -103,14 +108,26 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         //dismissViewControllerAnimated(true, completion: nil)
         
         // ***This code replaces the code above because it will be preformed when the delegate is called.
-        // AddItemViewControllerDelegate method that will be called when buttom is pressed.
-        delegate?.addItemViewControllerDidCancel(self)
+        // ItemDetailViewControllerDelegate method that will be called when buttom is pressed.
+        delegate?.itemDetailViewControllerDidCancel(self)
     }
     
     
     //MARK: DONE BUTTON
     @IBAction func done() {
         
+        // if item is not nil
+        if let item = itemToEdit {
+            
+            //... change text to edited text
+            item.text = addItemTextField.text
+            
+            //call the delegate method to finish.
+            delegate?.itemDetailViewController(self, didFinishEditingItem: item)
+        
+        // then item is nil so treat as a new item
+        } else {
+            
         // instance of ListItem
         let item = ListItem()
         
@@ -123,9 +140,12 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 //        dismissViewControllerAnimated(true, completion: nil)
         
         // ***This code replaces the code above because the now a delegate method will be called to pass data.
-        // AddItemViewControllerDelegate method that will be called when buttom is pressed - will pass data
-        delegate?.addItemViewController(self, didFinishAddingItem: item)
+        // ItemDetailViewControllerDelegate method that will be called when buttom is pressed - will pass data
+        delegate?.itemDetailViewController(self, didFinishAddingItem: item)
+        }
     }
+    
+    
     
     
     //MARK: -- TextField Delegate Methods (Make sure the add UITextFieldDelegate to the class declaration on the first line of code.

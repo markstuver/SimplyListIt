@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>2F4C7C6A-D969-4163-9F42-0AF55BEA3F58</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>Simply List It</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>E4143985C361B4157407E966A7630EF0463B0478</key>
 		<string>github.com:markstuver/SimplyListIt.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Simply List It.xcodeproj/project.xcworkspace</string>
+	<string>Simply List It.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>E4143985C361B4157407E966A7630EF0463B0478</key>

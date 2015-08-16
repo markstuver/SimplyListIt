@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SimplyListItViewController: UITableViewController, AddItemViewControllerDelegate {
+class SimplyListItViewController: UITableViewController, ItemDetailViewControllerDelegate {
     
     
     var items: [ListItem]
@@ -34,6 +34,9 @@ class SimplyListItViewController: UITableViewController, AddItemViewControllerDe
         items.append(row2item)
         
         super.init(coder: aDecoder)
+        
+        print("Document folder is \(documentsDirectory())\n")
+        print("Data file path is \(dataFilePath())")
     }
     
     
@@ -95,6 +98,10 @@ class SimplyListItViewController: UITableViewController, AddItemViewControllerDe
         
         // Delete the rows in the indexPaths Array
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        
+        // encode item and save
+        saveSimplyListItItem()
+
     }
 
     
@@ -119,15 +126,19 @@ class SimplyListItViewController: UITableViewController, AddItemViewControllerDe
         }
     
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        // encode item and save
+        saveSimplyListItItem()
+
     }
     
     
     
-    //MARK: -- AddItemViewController - DELEGATE Methods
+    //MARK: -- ItemDetailViewController - DELEGATE Methods
     
     
     // When AddItem's Cancel Button is pressed - this delegate method will trigger
-    func addItemViewControllerDidCancel(controller: AddItemViewController) {
+    func itemDetailViewControllerDidCancel(controller: ItemDetailViewController) {
         
         // Dismiss the addItemVC
         dismissViewControllerAnimated(true, completion: nil)
@@ -136,7 +147,7 @@ class SimplyListItViewController: UITableViewController, AddItemViewControllerDe
     
     
     // When AddItem's Done Button is pressed - this delegate method is triggered - data is passed and Screen is dismissed.
-    func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ListItem) {
+    func itemDetailViewController(controller: ItemDetailViewController, didFinishAddingItem item: ListItem) {
         
         // Grab the new row's index
         let newRowIndex = items.count
@@ -155,7 +166,74 @@ class SimplyListItViewController: UITableViewController, AddItemViewControllerDe
         
         // Dismiss the addItemVC
         dismissViewControllerAnimated(true, completion: nil)
+        
+        // encode item and save
+        saveSimplyListItItem()
+
     }
+  
+    
+    
+    
+    
+    // When EditItem's Done Button is pressed - this delegate method is triggered - data is changed and screen is dismissed.
+    func itemDetailViewController(controller: ItemDetailViewController, didFinishEditingItem item: ListItem) {
+        
+        if let index = find(items, item) {
+            
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                
+                configureTextForCell(cell, withListItem: item)
+            }
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+        
+        // encode item and save
+        saveSimplyListItItem()
+    }
+    
+    
+    
+    //MARK: --- FILE SAVING
+    
+    // Find the document directory (sandbox) for this App
+    func documentsDirectory() -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as! [String]
+        return paths[0]
+    }
+    
+    // Using the using the document directory, construct a full path to the file that will store the list's data
+    func dataFilePath() -> String {
+        
+        return documentsDirectory().stringByAppendingPathComponent("Simply_List_It.plist") //Simply_List_It.plist is the filename
+    }
+    
+    
+    
+    // Saving data to file
+    func saveSimplyListItItem() {
+        
+        // ** Add NSCoding to the ListItem class to conform to the NSCoding protocol
+        
+        // Create instance of NSMutableData
+        let data = NSMutableData()
+        
+        // Create archive instant to hold the data being saved
+        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
+        
+        // encode the items array into the archive instance
+        archiver.encodeObject(items, forKey: "ListItems")
+        
+        // call finishEncoding method on archive instance
+        archiver.finishEncoding()
+        
+        // write the archive instance's data into a file
+        data.writeToFile(dataFilePath(), atomically: true)
+    }
+    
+    
     
     
     
@@ -170,7 +248,7 @@ class SimplyListItViewController: UITableViewController, AddItemViewControllerDe
     //MARK: -- Action/Button Methods
  
 /* 
-    THIS BUTTON METHOD HAS BEEN REPLACED BY THE AddItemViewControllerDelegate's PROTOCOL METHODS
+    THIS BUTTON METHOD HAS BEEN REPLACED BY THE ItemDetailViewControllerDelegate's PROTOCOL METHODS
             **** REMEMBER TO DOUBLE CHECK THAT IN STORYBOARD THAT THE 'ADD' BUTTON's ONLY CONNECTION SHOULD BE THE SEQUE. */
     
 //    @IBAction func addItem() {
@@ -247,27 +325,56 @@ class SimplyListItViewController: UITableViewController, AddItemViewControllerDe
 
     //MARK: -- PREPARE FOR SEGUE METHODS
     
-    // Prepare For Segue Method - Seguing to a AddItemViewController that is on top of a NavigationController
+    // Prepare For Segue Method - Seguing to a ItemDetailViewController that is on top of a NavigationController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         // Make sure we are in the correct segue (Must equal segue identifier name in Storyboard)
         if segue.identifier == "AddItem" {
             
-            // Make sure that we are sequing into the AddItemViewController Class
-            if segue.destinationViewController.topViewController is (AddItemViewController) {
+            // Make sure that we are sequing into the ItemDetailViewController Class
+            if segue.destinationViewController.topViewController is (ItemDetailViewController) {
              
             // Create constant equal to the destinationVC (navigationController) - force unwrapped as UINavigationController
             let navigationController = segue.destinationViewController as! UINavigationController
                 
-                // Create constant equal the destinationVC's topViewController (force unwrapped as AddItemViewController)
-                let controller = navigationController.topViewController as! AddItemViewController
+                // Create constant equal the destinationVC's topViewController (force unwrapped as ItemDetailViewController)
+                let controller = navigationController.topViewController as! ItemDetailViewController
                 
                 // Set the ultimate destinationVC's delegate as self
                 controller.delegate = self
+        }
+            
+      // else if the segue we need is the EditItem
+    } else if segue.identifier == "EditItem" {
+            
+            // and the destinationVC's topVC is what we want
+            if segue.destinationViewController.topViewController is (ItemDetailViewController) {
+                
+                // Create instance of the destinationVC and force it to be a UINavigationController
+                let navigationController = segue.destinationViewController as! UINavigationController
+                
+                // Create an instance of the topVC of the NavigationController and force it to be AddItemVC
+                let controller = navigationController.topViewController as! ItemDetailViewController
+                
+                // Set the delegate for the topVC instance as self (meaning the VC we are in right now)
+                controller.delegate = self
+                
+                /* The Prepare for Segue method has a parameter called sender. It is initially set as an optional because if we call this method and do not need the parameter, the optional allows for it to read as nil which will let the method continue without error...
+                
+                So because we need to know which indexPath.row was tapped for edit, we will need to unwrap the sender optional to us the indexPath value inside it.
+                
+                Since sender could be a nil and we dont want to take any chances... we use an if statement to make sure that the value of sender is indeed the indexPath and not nil.
+                
+                */
+                if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
+                    
+                    controller.itemToEdit = items[indexPath.row]
+                }
             }
         }
     }
 
 
 }
+
 
