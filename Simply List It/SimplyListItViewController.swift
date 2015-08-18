@@ -18,6 +18,15 @@ class SimplyListItViewController: UITableViewController, ItemDetailViewControlle
         
         items = [ListItem]()
         
+        super.init(coder: aDecoder)
+        
+        loadSimplyListItItem()
+  
+        
+/*      code below was original used as sample list items while creating the methods to all of adding/editing/deleting list items.
+        
+        items = [ListItem]()
+        
         let row0item = ListItem()
         row0item.text = "Walk the dog"
         row0item.checked = false
@@ -31,12 +40,10 @@ class SimplyListItViewController: UITableViewController, ItemDetailViewControlle
         let row2item = ListItem()
         row2item.text = "Eat ice cream"
         row2item.checked = false
-        items.append(row2item)
+        items.append(row2item)   
         
         super.init(coder: aDecoder)
-        
-        print("Document folder is \(documentsDirectory())\n")
-        print("Data file path is \(dataFilePath())")
+*/
     }
     
     
@@ -196,7 +203,7 @@ class SimplyListItViewController: UITableViewController, ItemDetailViewControlle
     
     
     
-    //MARK: --- FILE SAVING
+    //MARK: --- FILE SAVING/LOADING
     
     // Find the document directory (sandbox) for this App
     func documentsDirectory() -> String {
@@ -211,8 +218,7 @@ class SimplyListItViewController: UITableViewController, ItemDetailViewControlle
     }
     
     
-    
-    // Saving data to file
+// SAVING data to file
     func saveSimplyListItItem() {
         
         // ** Add NSCoding to the ListItem class to conform to the NSCoding protocol
@@ -234,15 +240,29 @@ class SimplyListItViewController: UITableViewController, ItemDetailViewControlle
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+// LOADING data from file
+    func loadSimplyListItItem() {
+        
+        // Create a temporary instance of the file path
+        let path = dataFilePath()
+        
+        // If the plist file exsists (which means a file was created and data has been saved) - if it doesnot exsist then there is no data to load
+        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+            
+            // Make sure there is data actually in the file
+            if let data = NSData(contentsOfFile: path) {
+                
+                // unarchive the array of saved data into a temporary constant
+                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+            
+                // load the array of saved data into the global array variable
+                items = unarchiver.decodeObjectForKey("ListItems") as! [ListItem]
+                
+                // notify that the decoding has completed
+                unarchiver.finishDecoding()
+            }
+        }
+    }
     
     
     //MARK: -- Action/Button Methods
